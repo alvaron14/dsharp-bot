@@ -10,7 +10,6 @@
     <PackageReference Include="DSharpPlus.CommandsNext" Version="4.0.0-nightly-00760" />
     <PackageReference Include="DSharpPlus.Interactivity" Version="4.0.0-nightly-00760" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.28" />
-    <PackageReference Include="IKVM" Version="8.1.5717" />
     <PackageReference Include="Microsoft.AspNetCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Hosting.Abstractions" Version="2.2.0" />
   </ItemGroup>

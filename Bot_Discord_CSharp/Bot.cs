@@ -12,6 +12,7 @@ using Bot_Discord_CSharp.Commands;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
+using DSharpPlus.Entities;
 
 namespace Bot_Discord_CSharp
 {
@@ -76,9 +77,11 @@ namespace Bot_Discord_CSharp
             await Task.Delay(-1);
         }
 
-        private Task OnClientReady(DiscordClient client, ReadyEventArgs e)
+        private async Task OnClientReady(DiscordClient client, ReadyEventArgs e)
         {
-            return null;
+            DiscordGuild guild = await client.GetGuildAsync(732743391548407888, true);
+            DiscordChannel channel = guild.GetChannel(785719482924007424);
+            await channel.SendMessageAsync("Ya estoy de vuelta");
         }
 
         private void RegisterCommands()

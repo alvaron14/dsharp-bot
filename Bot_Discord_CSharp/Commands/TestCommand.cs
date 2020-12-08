@@ -27,6 +27,7 @@ namespace Bot_Discord_CSharp.Commands
         }
 
         [Command("response")]
+        [Hidden]
         public async Task Response(CommandContext ctx)
         {
             var interactivity = ctx.Client.GetInteractivity();
@@ -39,6 +40,7 @@ namespace Bot_Discord_CSharp.Commands
         }
 
         [Command("respondReaction")]
+        [Hidden]
         public async Task ResponseReaction(CommandContext ctx)
         {
             var interactivity = ctx.Client.GetInteractivity();
@@ -86,15 +88,20 @@ namespace Bot_Discord_CSharp.Commands
         }
 
         [Command("fecha")]
+        [Description("Te devuelve la fecha de hoy")]
         public async Task GetCurrentDay(CommandContext ctx)
         {
             await ctx.Channel.SendMessageAsync(Today());
         }
 
         [Command("borrar")]
-        public async Task DeleteAllMessages(CommandContext ctx)
+        [Description("Borra los últimos X mensajes o si no se pone nada los últimos 100")]
+        public async Task DeleteAllMessages(CommandContext ctx, params string[] command)
         {
-            IReadOnlyCollection<DiscordMessage> messages = await ctx.Channel.GetMessagesAsync(100);
+            int numberOfMenssages;
+            if (!command.Any()) numberOfMenssages = 100;
+            else numberOfMenssages = Int32.Parse(command[0]);
+            IReadOnlyCollection<DiscordMessage> messages = await ctx.Channel.GetMessagesAsync(numberOfMenssages);
             await ctx.Channel.DeleteMessagesAsync(messages);
         }
 

@@ -1,5 +1,4 @@
-﻿using Cqrs.Hosts;
-using ikvm.runtime;
+﻿using ikvm.runtime;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System;

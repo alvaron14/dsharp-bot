@@ -1,1 +1,1 @@
-worker: cd $HOME/heroku_output && ./Bot_Discord_CSharp
+worker: node Bot_Discord_CSharp

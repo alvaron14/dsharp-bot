@@ -23,19 +23,28 @@ namespace Bot_Discord_CSharp
 
         public async Task RunAsync()
         {
-            //var json = string.Empty;
+            string token, prefix;
+            if (!Environment.GetEnvironmentVariables().Contains("Token"))
+            {
+                var json = string.Empty;
 
-            //using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
-            //using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
-            //    json = await sr.ReadToEndAsync().ConfigureAwait(false);
+                using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
+                using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+                    json = await sr.ReadToEndAsync().ConfigureAwait(false);
 
-            //var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
-            var Token = Environment.GetEnvironmentVariable("Token");
-            var prefix = Environment.GetEnvironmentVariable("Prefix");
+                var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
+                token = configJson.Token;
+                prefix = configJson.Prefix;
+            }
+            else
+            {
+                token = Environment.GetEnvironmentVariable("Token");
+                prefix = Environment.GetEnvironmentVariable("Prefix");
+            }
 
             var config = new DiscordConfiguration
             {
-                Token = Token,
+                Token = token,
                 TokenType = TokenType.Bot,
                 AutoReconnect = true,
                 MinimumLogLevel = LogLevel.Debug

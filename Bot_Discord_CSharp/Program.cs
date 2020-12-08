@@ -11,7 +11,7 @@ namespace Bot_Discord_CSharp
         {
             var host = CreateWebHostBuilder(args).
                UseKestrel().
-               UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("$PORT")).
+               UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("PORT")).
                Build();
 
             host.Run();

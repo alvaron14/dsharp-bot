@@ -23,17 +23,19 @@ namespace Bot_Discord_CSharp
 
         public async Task RunAsync()
         {
-            var json = string.Empty;
+            //var json = string.Empty;
 
-            using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
-            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
-                json = await sr.ReadToEndAsync().ConfigureAwait(false);
+            //using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
+            //using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+            //    json = await sr.ReadToEndAsync().ConfigureAwait(false);
 
-            var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
+            //var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
+            var Token = Environment.GetEnvironmentVariable("Token");
+            var prefix = Environment.GetEnvironmentVariable("Prefix");
 
             var config = new DiscordConfiguration
             {
-                Token = configJson.Token,
+                Token = Token,
                 TokenType = TokenType.Bot,
                 AutoReconnect = true,
                 MinimumLogLevel = LogLevel.Debug
@@ -50,7 +52,7 @@ namespace Bot_Discord_CSharp
 
             var commandsConfig = new CommandsNextConfiguration
             {
-                StringPrefixes = new string[] { configJson.Prefix },
+                StringPrefixes = new string[] { prefix },
                 EnableDms = false,
                 EnableMentionPrefix = true,
                 DmHelp = false

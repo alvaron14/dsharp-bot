@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System;
+using System.IO;
 
 namespace Bot_Discord_CSharp
 {
@@ -9,18 +10,18 @@ namespace Bot_Discord_CSharp
     {
         static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).
-               UseKestrel().
-               UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("$PORT")).
-               Build();
+            var host = new WebHostBuilder()
+            .UseKestrel()
+            .UseContentRoot(Directory.GetCurrentDirectory())
+            .UseIISIntegration()
+            .UseStartup<Startup>()
+            .UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("$PORT"))
+            .Build();
 
             host.Run();
 
             Bot bot = new Bot();
             bot.RunAsync().GetAwaiter().GetResult();
         }
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }

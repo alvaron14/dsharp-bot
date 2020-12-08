@@ -1,4 +1,5 @@
 ﻿using Cqrs.Hosts;
+using ikvm.runtime;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using System;
@@ -11,7 +12,7 @@ namespace Bot_Discord_CSharp
         {
             var host = CreateWebHostBuilder(args).
                UseKestrel().
-               UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("PORT")).
+               UseUrls("http://0.0.0.0:" + Environment.GetEnvironmentVariable("$PORT")).
                Build();
 
             host.Run();
@@ -21,6 +22,6 @@ namespace Bot_Discord_CSharp
         }
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                .UseStartup<StartUp>();
+                .UseStartup<Startup>();
     }
 }

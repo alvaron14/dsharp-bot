@@ -24,7 +24,7 @@ namespace Bot_Discord_CSharp
         public async Task RunAsync()
         {
             string token, prefix;
-            if (!Environment.GetEnvironmentVariables().Contains("Token"))
+            if (!Environment.GetEnvironmentVariables().Contains("TOKEN"))
             {
                 var json = string.Empty;
 
@@ -38,8 +38,8 @@ namespace Bot_Discord_CSharp
             }
             else
             {
-                token = Environment.GetEnvironmentVariable("Token");
-                prefix = Environment.GetEnvironmentVariable("Prefix");
+                token = Environment.GetEnvironmentVariable("TOKEN");
+                prefix = Environment.GetEnvironmentVariable("PREFIX");
             }
 
             var config = new DiscordConfiguration

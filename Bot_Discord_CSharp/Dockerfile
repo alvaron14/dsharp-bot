@@ -15,4 +15,6 @@ WORKDIR /app
 COPY --from=build-env /app/out .
 
 #COPY config.json ./
+COPY Properties/launchSettings.json ./
+
 ENTRYPOINT ["dotnet", "Bot_Discord_CSharp.dll"]

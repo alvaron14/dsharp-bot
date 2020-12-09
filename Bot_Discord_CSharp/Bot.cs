@@ -1,18 +1,16 @@
 ﻿using DSharpPlus;
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
-using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
-using Bot_Discord_CSharp.Dto;
 using Bot_Discord_CSharp.Commands;
 using Microsoft.Extensions.Logging;
 using DSharpPlus.Interactivity;
 using DSharpPlus.Interactivity.Extensions;
 using DSharpPlus.Entities;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
+using Bot_Discord_CSharp.Dto;
 
 namespace Bot_Discord_CSharp
 {
@@ -25,22 +23,18 @@ namespace Bot_Discord_CSharp
         public async Task RunAsync()
         {
             string token, prefix;
-            if (!Environment.GetEnvironmentVariables().Contains("TOKEN"))
-            {
-                var json = string.Empty;
-
-                using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
-                using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
-                    json = await sr.ReadToEndAsync().ConfigureAwait(false);
-
-                var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
-                token = configJson.Token;
-                prefix = configJson.Prefix;
-            }
-            else
+            if (Environment.GetEnvironmentVariable("TOKEN") != null)
             {
                 token = Environment.GetEnvironmentVariable("TOKEN");
                 prefix = Environment.GetEnvironmentVariable("PREFIX");
+                Console.WriteLine(0);
+            } else
+            {
+                ProfilesDto profiles = JsonConvert.DeserializeObject<ProfilesDto>(System.IO.File.ReadAllText("./launchSettings.json"));
+                SecretsDto secrets = profiles.Bot_Discord_CSharp.EnvironmentVariables.Secrets;
+                token = secrets.Token;
+                prefix = secrets.Prefix;
+                Console.WriteLine(System.IO.File.ReadAllText("./launchSettings.json"));
             }
 
             var config = new DiscordConfiguration

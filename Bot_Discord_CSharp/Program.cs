@@ -1,8 +1,4 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System;
-using System.IO;
-
-namespace Bot_Discord_CSharp
+﻿namespace Bot_Discord_CSharp
 {
     class Program
     {

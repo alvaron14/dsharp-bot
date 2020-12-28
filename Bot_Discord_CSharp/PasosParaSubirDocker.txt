@@ -1,0 +1,6 @@
+﻿heroku container:login
+docker build -t discord-bot-dsharp "E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\bin\Release\netcoreapp3.1\publish"
+docker tag discord-bot-dsharp registry.heroku.com/discord-bot-dsharp/worker
+docker push registry.heroku.com/discord-bot-dsharp/worker
+heroku container:release worker --app discord-bot-dsharp
+heroku container:push release --app discord-bot-dsharp

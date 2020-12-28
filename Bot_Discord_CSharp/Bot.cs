@@ -27,14 +27,12 @@ namespace Bot_Discord_CSharp
             {
                 token = Environment.GetEnvironmentVariable("TOKEN");
                 prefix = Environment.GetEnvironmentVariable("PREFIX");
-                Console.WriteLine(0);
             } else
             {
                 ProfilesDto profiles = JsonConvert.DeserializeObject<ProfilesDto>(System.IO.File.ReadAllText("./launchSettings.json"));
                 SecretsDto secrets = profiles.Bot_Discord_CSharp.EnvironmentVariables.Secrets;
                 token = secrets.Token;
                 prefix = secrets.Prefix;
-                Console.WriteLine(System.IO.File.ReadAllText("./launchSettings.json"));
             }
 
             var config = new DiscordConfiguration

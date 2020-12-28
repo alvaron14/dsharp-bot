@@ -3,7 +3,9 @@ WORKDIR /app
 
 # Copy csproj and restore as distinct layers
 COPY *.sln .
+WORKDIR /.
 COPY Bot_Discord_CSharp/*.csproj ./aspnetapp/
+WORKDIR /app
 #COPY *.csproj ./
 RUN dotnet restore
 

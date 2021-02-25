@@ -1,5 +1,0 @@
-﻿version: "3"
-services:
-  bot:
-    build: .
-    image: mydiscordbot

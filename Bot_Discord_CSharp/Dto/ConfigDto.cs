@@ -7,9 +7,9 @@ namespace Bot_Discord_CSharp.Dto
 {
     class ConfigDto
     {
-        [JsonProperty("token")]
+        [JsonProperty("TOKEN")]
         public string Token { get; private set; }
-        [JsonProperty("Prefix")]
+        [JsonProperty("PREFIX")]
         public string Prefix { get; private set; }
     }
 }

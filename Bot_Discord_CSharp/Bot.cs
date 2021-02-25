@@ -3,7 +3,6 @@ using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,23 +24,15 @@ namespace Bot_Discord_CSharp
         public async Task RunAsync()
         {
             string token, prefix;
-            if (!Environment.GetEnvironmentVariables().Contains("TOKEN"))
-            {
-                var json = string.Empty;
+            var json = string.Empty;
 
-                using (var fs = File.OpenRead(@"E:\Proyectos Visual Studio\Bot_Discord_CSharp\Bot_Discord_CSharp\config.json"))
-                using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
-                    json = await sr.ReadToEndAsync().ConfigureAwait(false);
+            using (var fs = File.OpenRead(Directory.GetCurrentDirectory() + @"/Properties/launchSettings.json"))
+            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+            json = await sr.ReadToEndAsync().ConfigureAwait(false);
 
-                var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
-                token = configJson.Token;
-                prefix = configJson.Prefix;
-            }
-            else
-            {
-                token = Environment.GetEnvironmentVariable("TOKEN");
-                prefix = Environment.GetEnvironmentVariable("PREFIX");
-            }
+            var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
+            token = configJson.Token;
+            prefix = configJson.Prefix;
 
             var config = new DiscordConfiguration
             {

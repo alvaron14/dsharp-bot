@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Bot_Discord_CSharp": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "TOKEN": "NzgzODIwMzI4ODgyNDA1Mzk2.X8gTkQ.u1talu0EMiYQTNFKghTrmsoWspM",
+        "PREFIX": "!"
+      }
+    }
+  }
+}

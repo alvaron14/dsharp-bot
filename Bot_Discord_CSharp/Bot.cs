@@ -2,6 +2,10 @@
 using DSharpPlus.CommandsNext;
 using DSharpPlus.EventArgs;
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Text;
+using System.Text;
 using System.Threading.Tasks;
 using Bot_Discord_CSharp.Commands;
 using Microsoft.Extensions.Logging;
@@ -21,18 +25,16 @@ namespace Bot_Discord_CSharp
         public CommandsNextExtension Commands { get; private set; }
 
         public async Task RunAsync()
-        {
-            string token, prefix;
-            if (Environment.GetEnvironmentVariable("TOKEN") != null)
-            {
-                token = Environment.GetEnvironmentVariable("TOKEN");
+            var json = string.Empty;
+
+            using (var fs = File.OpenRead(Directory.GetCurrentDirectory() + @"/Properties/launchSettings.json"))
+            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+            json = await sr.ReadToEndAsync().ConfigureAwait(false);
+
+            var configJson = JsonConvert.DeserializeObject<ConfigDto>(json);
+            token = configJson.Token;
+            prefix = configJson.Prefix;
                 prefix = Environment.GetEnvironmentVariable("PREFIX");
-            } else
-            {
-                ProfilesDto profiles = JsonConvert.DeserializeObject<ProfilesDto>(System.IO.File.ReadAllText("./launchSettings.json"));
-                SecretsDto secrets = profiles.Bot_Discord_CSharp.EnvironmentVariables.Secrets;
-                token = secrets.Token;
-                prefix = secrets.Prefix;
             }
 
             var config = new DiscordConfiguration
